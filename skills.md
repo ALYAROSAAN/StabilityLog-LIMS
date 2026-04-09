@@ -1,21 +1,33 @@
 # StabilityLog AI Skills: Kotlin-SpringBoot-Expert
 
-## Context
+## 1. Context
 StabilityLog adalah sistem Manajemen Laboratorium (LIMS) yang dirancang untuk mengotomatisasi pemantauan uji stabilitas produk skincare. Sistem ini fokus pada validasi parameter fisik (pH, viskositas), penjadwalan otomatis, dan kepatuhan integritas data melalui Audit Trail.
 
-## Technical Standards
-- **Language**: Kotlin 1.9+.
+## 2. Technical Stack Standards
+- **Language**: Kotlin 1.9+ dengan coding style idiomatik (null-safety, data classes).
 - **Backend Framework**: Spring Boot 3.x (Single Framework Policy).
-- [cite_start]**Frontend**: HTML5 dengan Thymeleaf atau Bootstrap sederhana agar UI bisa langsung dicoba.
-- [cite_start]**Architecture**: MVC (Model-View-Controller)[cite: 16].
+- **Frontend**: HTML5 + Thymeleaf + Tailwind CSS/Bootstrap (CDN) agar UI interaktif dan mudah dicoba.
+- **Database**: H2 Database (In-Memory) untuk keperluan demo tugas agar tidak perlu setup database eksternal.
+- **Pattern**: MVC (Model-View-Controller) dengan Service Layer yang terpisah.
 
-## UI & Functional Capabilities
-1. [cite_start]**Form Generation**: AI harus bisa membuat form input untuk pendaftaran sampel (US 1.1) dan input hasil lab pH/Viskositas (US 2.3)[cite: 46, 89, 94].
-2. [cite_start]**Result Visualization**: AI harus mampu menampilkan tabel data hasil uji yang memiliki logika "Highlight Anomali" (berwarna merah jika di luar batas)[cite: 124, 130].
-3. [cite_start]**Action Buttons**: Menyediakan tombol "Approve" dan "Reject" yang memicu perubahan status data secara permanen[cite: 145].
+## 3. Mandatory AI Capabilities (Skills)
+### A. UI Generation Skill
+- AI harus mampu menghasilkan file `.html` (Thymeleaf) yang memiliki form input lengkap dengan label dan tombol aksi.
+- Setiap form wajib memiliki validasi sisi klien (misal: `required`, `min`, `max`).
 
-## Prompting Rules for Developers
-Setiap prompt harus menghasilkan:
-- **Backend**: Controller, Service, dan Repository.
-- **Frontend**: File `.html` yang sesuai dengan Controller tersebut.
-- [cite_start]**Validation**: Rules wajib mencakup rentang pH 0-14 dan Audit Trail[cite: 89, 153].
+### B. Business Logic & Validation Skill
+- **Validation**: Nilai pH wajib divalidasi pada rentang 0.0 - 14.0
+- **Auto-Scheduling**: Saat registrasi produk, AI wajib men-generate jadwal uji secara otomatis berdasarkan interval (H+1, H+7, H+30)
+- **QR Generation**: Mensimulasikan pembuatan QR Code unik untuk setiap batch sampel
+
+### C. Integrity & Security Skill
+- **Audit Trail**: Setiap operasi simpan/update harus mencatat siapa yang melakukan aksi, kapan, dan nilai apa yang berubah
+- **RBAC**: Implementasi logika pengecekan Role (Formulator vs Teknisi) pada setiap akses menu.
+
+## 4. Output Formatting Rules
+Setiap kode yang dihasilkan AI harus mengikuti format laporan:
+1. **Input**: Gunakan anotasi `@parameter` untuk parameter fungsi.
+2. **Output**: Gunakan anotasi `@return` untuk tipe data kembalian.
+3. **Rules**: Tuliskan komentar `//validation` di dalam blok kode.
+4. **What Changed**: Penjelasan file apa saja yang dibuat atau diubah.
+5. **Commit Message**: Pesan commit sesuai standar Git.
