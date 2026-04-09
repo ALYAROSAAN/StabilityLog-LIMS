@@ -1,7 +1,7 @@
 # StabilityLog AI Skills: Kotlin-SpringBoot-Expert
 
 ## 1. Context
-StabilityLog adalah sistem Manajemen Laboratorium (LIMS) yang dirancang untuk mengotomatisasi pemantauan uji stabilitas produk skincare. Sistem ini fokus pada validasi parameter fisik (pH, viskositas), penjadwalan otomatis, dan kepatuhan integritas data melalui Audit Trail.
+StabilityLog adalah sistem Manajemen Laboratorium (LIMS) yang dirancang untuk mengotomatisasi pemantauan uji stabilitas produk skincare. Sistem ini fokus pada validasi parameter fisik (pH, viskositas), penjadwalan otomatis, dan kepatuhan integritas data melalui Audit Trail untuk menjamin kualitas produk sesuai standar BPOM
 
 ## 2. Technical Stack Standards
 - **Language**: Kotlin 1.9+ dengan coding style idiomatik (null-safety, data classes).
