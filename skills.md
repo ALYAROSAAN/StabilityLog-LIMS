@@ -15,21 +15,18 @@ StabilityLog adalah sistem Manajemen Laboratorium (LIMS) yang dirancang untuk me
 ### A. UI Generation Skill
 - AI harus mampu menghasilkan file `.html` (Thymeleaf) yang memiliki form input lengkap dengan label dan tombol aksi.
 - Setiap form wajib memiliki validasi sisi klien (misal: `required`, `min`, `max`).
+- UI harus memiliki form input untuk pendaftaran sampel (US 1.1) yang terhubung langsung ke database.
 
-### 4. Business Logic & Validation Skill
+### B. Business Logic & Validation Skill
 - **Validation**: Nilai pH wajib divalidasi pada rentang 0.0 - 14.0
 - **Auto-Scheduling**: Saat registrasi produk, AI wajib men-generate jadwal uji secara otomatis berdasarkan interval (H+1, H+7, H+30)
 - **QR Generation**: Mensimulasikan pembuatan QR Code unik untuk setiap batch sampel
 
-### 5. Integrity & Security Skill
+### C. Integrity & Security Skill
 - **Audit Trail**: Setiap operasi simpan/update harus mencatat siapa yang melakukan aksi, kapan, dan nilai apa yang berubah
 - **RBAC**: Implementasi logika pengecekan Role (Formulator vs Teknisi) pada setiap akses menu.
 
-4. UI Generation Rules
-- **Frontend**: File Blade Template sederhana menggunakan Bootstrap atau Tailwind CSS (via CDN) agar UI interaktif dan fungsional.
-- **Interactivity**: UI harus memiliki form input untuk pendaftaran sampel (US 1.1) yang terhubung langsung ke database.
-
-## 6. Output Formatting Rules
+## 4. Output Formatting Rules
 Setiap kode yang dihasilkan AI harus mengikuti format laporan:
 1. **Input**: Gunakan anotasi `@parameter` untuk parameter fungsi.
 2. **Output**: Gunakan anotasi `@return` untuk tipe data kembalian.
