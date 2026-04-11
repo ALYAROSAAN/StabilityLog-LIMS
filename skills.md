@@ -1,4 +1,4 @@
-# StabilityLog AI Skills: Kotlin-SpringBoot-Expert
+# StabilityLog AI Skills: Laravel-PHP-Expert
 
 ## 1. Context
 StabilityLog adalah sistem Manajemen Laboratorium (LIMS) yang dirancang untuk mengotomatisasi pemantauan uji stabilitas produk skincare. Sistem ini fokus pada validasi parameter fisik (pH, viskositas), penjadwalan otomatis, dan kepatuhan integritas data melalui Audit Trail untuk menjamin kualitas produk sesuai standar BPOM
