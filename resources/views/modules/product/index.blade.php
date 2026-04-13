@@ -34,7 +34,7 @@
                     </thead>
                     <tbody>
                         @forelse($products as $product)
-                            <tr>
+                            <tr @class(['table-danger' => $product->stabilityTests->contains(function ($test) { return optional($test->testResult)->is_anomaly; })])>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $product->name }}</td>
                                 <td>{{ $product->batch_code }}</td>
@@ -49,18 +49,21 @@
                                     @endif
                                 </td>
                                 <td>
-                                    @if($product->barcode_qr)
-                                        <a href="/{{ $product->barcode_qr }}" target="_blank">Lihat QR</a>
+                                    @if($product->qr_code)
+                                        <a href="/{{ $product->qr_code }}" target="_blank">Lihat QR</a>
                                     @else
                                         -
                                     @endif
                                 </td>
                                 <td>
-                                    <form action="{{ route('products.destroy', $product) }}" method="POST" onsubmit="return confirm('Hapus sampel ini?');">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-outline-danger">Hapus</button>
-                                    </form>
+                                    <div class="d-flex gap-2">
+                                        <a href="{{ route('products.show', $product) }}" class="btn btn-sm btn-outline-primary">Lihat</a>
+                                        <form action="{{ route('products.destroy', $product) }}" method="POST" onsubmit="return confirm('Hapus sampel ini?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-outline-danger">Hapus</button>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                         @empty

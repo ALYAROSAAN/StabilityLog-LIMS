@@ -7,4 +7,5 @@ Route::get('/', [ProductController::class, 'create'])->name('home');
 Route::get('/register', [ProductController::class, 'create'])->name('products.create');
 Route::post('/register', [ProductController::class, 'store'])->name('products.store');
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+Route::get('/products/{product:batch_code}', [ProductController::class, 'show'])->name('products.show');
 Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');

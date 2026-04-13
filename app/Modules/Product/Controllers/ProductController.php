@@ -10,12 +10,18 @@ use Illuminate\Http\RedirectResponse;
 
 class ProductController
 {
+    private array $availableParameters = [
+        ['key' => 'ph', 'label' => 'pH', 'hint' => 'Rentang 0.0 - 14.0'],
+        ['key' => 'viscosity', 'label' => 'Viskositas', 'hint' => 'Masukkan batas min/max dalam cP'],
+        ['key' => 'organoleptic', 'label' => 'Organoleptik', 'hint' => 'Masukkan nilai deskriptif atau ambang batas.'],
+    ];
+
     /**
      * Menampilkan daftar semua produk dengan jadwal uji stabilitas
      */
     public function index(): View
     {
-        $products = Product::with('stabilityTests')
+        $products = Product::with(['stabilityTests.testResult', 'testingParameters'])
             ->orderBy('created_at', 'desc')
             ->get();
 
@@ -27,35 +33,35 @@ class ProductController
      */
     public function create(): View
     {
-        return view('modules.product.create');
+        $availableParameters = $this->availableParameters;
+
+        return view('modules.product.create', compact('availableParameters'));
     }
 
     /**
      * Menyimpan dan mendaftarkan sampel produk baru
-     * - Generate QR Code unik
-     * - Buat jadwal uji otomatis (H+1, H+7, H+30)
-     * - Set status awal "Ready"
      */
     public function store(StoreProductRequest $request, RegisterProductAction $action): RedirectResponse
     {
         try {
             $action->execute($request->validated());
-            
+
             return redirect()->route('products.index')
                 ->with('success', 'Sampel berhasil didaftarkan! Jadwal uji otomatis telah dibuat (H+1, H+7, H+30).');
         } catch (\Exception $e) {
             return back()
-                ->with('error', 'Gagal mendaftarkan sampel. Silahkan coba lagi.')
+                ->with('error', 'Gagal mendaftarkan sampel. Silahkan coba lagi. ' . $e->getMessage())
                 ->withInput();
         }
     }
 
     /**
-     * Menampilkan detail produk dengan jadwal uji dan QR Code
+     * Menampilkan detail produk dengan jadwal uji dan parameter
      */
     public function show(Product $product): View
     {
-        $product->load('stabilityTests');
+        $product->load(['stabilityTests.testResult.testingParameter', 'testingParameters', 'auditTrails']);
+
         return view('modules.product.show', compact('product'));
     }
 
@@ -64,7 +70,6 @@ class ProductController
      */
     public function destroy(Product $product): RedirectResponse
     {
-        // Cascade delete: stabilityTests akan terhapus otomatis jika foreign key ON DELETE CASCADE
         $product->delete();
 
         return redirect()->route('products.index')

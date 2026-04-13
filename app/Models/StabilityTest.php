@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class StabilityTest extends Model
 {
@@ -31,5 +32,13 @@ class StabilityTest extends Model
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);
+    }
+
+    /**
+     * Relasi 1:1 ke TestResult
+     */
+    public function testResult(): HasOne
+    {
+        return $this->hasOne(TestResult::class);
     }
 }

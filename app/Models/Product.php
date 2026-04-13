@@ -32,4 +32,20 @@ class Product extends Model
     {
         return $this->hasMany(StabilityTest::class);
     }
+
+    /**
+     * Relasi ke TestingParameter (1 Product memiliki banyak TestingParameter)
+     */
+    public function testingParameters(): HasMany
+    {
+        return $this->hasMany(TestingParameter::class);
+    }
+
+    /**
+     * Relasi ke AuditTrail (audit untuk product)
+     */
+    public function auditTrails(): HasMany
+    {
+        return $this->hasMany(AuditTrail::class, 'auditable_id')->where('auditable_type', 'product');
+    }
 }
