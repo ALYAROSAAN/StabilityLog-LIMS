@@ -30,6 +30,9 @@ Prinsip teknis diadaptasi dari best practices Kotlin/Spring Boot agar sesuai den
 - **Validasi pH:**
   - Nilai pH harus berada di rentang 0.0–14.0.
   - Validasi dilakukan di level Form Request dan Model.
+- **Konfigurasi Parameter Pengujian**
+  - Saat registrasi, user wajib memilih parameter (pH, Viskositas, atau Organoleptik).
+  - User menetapkan ambang batas (min/max) untuk setiap parameter yang dipilih.
 - **Otomatisasi Jadwal Uji:**
   - Saat produk diregistrasi, sistem otomatis membuat jadwal uji H+1, H+7, H+30.
 - **Deteksi Anomali:**
