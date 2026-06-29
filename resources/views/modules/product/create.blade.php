@@ -7,20 +7,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        body {
-            background-color: #f8f9fa;
-            min-height: 100vh;
-        }
-        .container { max-width: 960px; }
-        .card {
-            border: none;
-            border-radius: 0.5rem;
-        }
-        .card-header {
-            background-color: #ffffff;
-            border-bottom: 1px solid #e9ecef;
-            padding: 1.25rem 1.5rem;
-        }
+        body { background-color: #f8f9fa; min-height: 100vh; }
+        .container-main { max-width: 960px; margin: 0 auto; }
+        .card { border: none; border-radius: 0.5rem; }
+        .card-header { background-color: #ffffff; border-bottom: 1px solid #e9ecef; padding: 1.25rem 1.5rem; }
         .card-header h5 { font-weight: 700; margin: 0; }
         .form-label { font-weight: 500; color: #333; margin-bottom: 8px; }
         .form-control { border-radius: 0.5rem; }
@@ -29,8 +19,6 @@
         .alert { border-radius: 0.5rem; border: none; padding: 15px; margin-bottom: 20px; }
         .btn-primary { border-radius: 0.5rem; padding: 12px; font-weight: 600; }
         .btn-outline-secondary { border-radius: 0.5rem; }
-        .info-box { display: flex; align-items: flex-start; padding: 15px; background-color: #ffffff; border-radius: 0.5rem; border: 1px solid #e9ecef; margin-bottom: 20px; }
-        .info-box i { color: #0d6efd; margin-right: 12px; margin-top: 2px; }
         .title-section { text-align: left; color: #212529; margin-bottom: 30px; }
         .title-section h1 { font-weight: 700; margin-bottom: 0.5rem; }
         .title-section p { font-size: 14px; color: #6c757d; }
@@ -39,7 +27,26 @@
     </style>
 </head>
 <body class="bg-light">
-    <div class="container mt-5">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="{{ route('products.index') }}">StabilityLog LIMS</a>
+            
+            <div class="d-flex align-items-center gap-3">
+                <span class="text-light">
+                    Halo, <strong>{{ auth()->user()->name ?? 'Pengguna' }}</strong> 
+                    <span class="badge bg-secondary ms-1">{{ auth()->user()->role->name ?? 'Guest' }}</span>
+                </span>
+                
+                <form action="{{ route('logout') }}" method="POST" class="m-0">
+                    @csrf
+                    <button type="submit" class="btn btn-sm btn-danger">Keluar (Logout)</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container container-main pb-5">
         <div class="title-section">
             <h1>StabilityLog</h1>
             <p>Sistem Manajemen Uji Stabilitas Skincare</p>
@@ -123,7 +130,7 @@
                             @error('custom_intervals')
                                 <div class="invalid-feedback d-block">{{ $message }}</div>
                             @enderror
-                            <button type="button" id="add_interval_btn" class="btn btn-outline-primary btn-sm">Tambah Interval</button>
+                            <button type="button" id="add_interval_btn" class="btn btn-outline-primary btn-sm mt-2">Tambah Interval</button>
                         </div>
                     </div>
 
@@ -180,7 +187,7 @@
                 </form>
 
                 <div class="text-center mt-4">
-                    <a href="{{ route('products.index') }}" class="btn btn-outline-secondary"><i class="fas fa-list me-2"></i> Lihat Daftar Produk</a>
+                    <a href="{{ route('products.index') }}" class="btn btn-outline-secondary"><i class="fas fa-list me-2"></i> Kembali ke Daftar Produk</a>
                 </div>
             </div>
         </div>

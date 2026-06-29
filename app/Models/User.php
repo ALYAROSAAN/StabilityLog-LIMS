@@ -33,16 +33,19 @@ class User extends Authenticatable
 
     public function role(): BelongsTo
     {
-        return $this->belongsTo(Role::class);
+        return $this->belongsTo(Role::class, 'role_id');
     }
 
-    public function auditTrails(): HasMany
+    public function hasRole(array|string $roles): bool
     {
-        return $this->hasMany(AuditTrail::class);
-    }
-
-    public function auditLogs(): HasMany
-    {
-        return $this->hasMany(AuditLog::class);
+        if (is_string($roles)) {
+            $roles = [$roles];
+        }
+        
+        // Mengubah nama role menjadi huruf kecil agar pencocokan akurat
+        $userRole = strtolower($this->role?->name ?? '');
+        $allowedRoles = array_map('strtolower', $roles);
+        
+        return in_array($userRole, $allowedRoles, true);
     }
 }
